@@ -19,10 +19,14 @@ function App() {
     } catch(err){
       console.log('not connected')
       let wallet = sequence.getWallet()
-      const details = await wallet.connect({app: 'demo-vite-starter'})
-      if(details.connected){
-        setIsLoggedIn(true)
-        setAddress(details.session?.accountAddress)
+      try {
+        const details = await wallet.connect({app: 'demo-vite-starter'})
+        if(details.connected){
+          setIsLoggedIn(true)
+          setAddress(details.session?.accountAddress)
+        }
+      }catch(err){
+        console.log('user closed wallet')
       }
     }
   }
